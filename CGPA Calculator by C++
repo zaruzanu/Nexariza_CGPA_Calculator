@@ -1,16 +1,68 @@
- 
-Objective: Develop a C++ program to calculate 
+#include <iostream>
+#include <string>
+using namespace std;
 
-CGPA
+// Structure to store course information
+struct Course {
+    string name;
+    char grade;
+    int credits;
+};
 
-● Requirements:
+// Function to calculate grade point
+float calculateGradePoint(char grade) {
+    switch (grade) {
+        case 'A': return 4.0;
+        case 'B': return 3.0;
+        case 'C': return 2.0;
+        case 'D': return 1.0;
+        case 'F': return 0.0;
+        default: return 0.0;
+    }
+}
 
-● Input the number of courses
+int main() {
+    int numCourses;
+    float totalCredits = 0, totalGradePoints = 0;
 
-● Input grades for each course
+    // Input number of courses
+    cout << "Enter the number of courses: ";
+    cin >> numCourses;
 
-● Calculate and display individual grades, total 
+    Course courses[numCourses];
 
-credits, and grade points
+    // Input course information
+    for (int i = 0; i < numCourses; i++) {
+        cout << "\nCourse " << i + 1 << ":" << endl;
+        cout << "Enter course name: ";
+        cin.ignore();
+        getline(cin, courses[i].name);
+        cout << "Enter grade (A, B, C, D, F): ";
+        cin >> courses[i].grade;
+        cout << "Enter credits: ";
+        cin >> courses[i].credits;
+    }
 
-● Determine GPA and generate the CGPA
+    // Calculate and display individual grades, total credits, and grade points
+    cout << "\nCourse Details:" << endl;
+    for (int i = 0; i < numCourses; i++) {
+        float gradePoint = calculateGradePoint(courses[i].grade);
+        cout << "Course: " << courses[i].name << endl;
+        cout << "Grade: " << courses[i].grade << endl;
+        cout << "Credits: " << courses[i].credits << endl;
+        cout << "Grade Point: " << gradePoint << endl;
+        cout << endl;
+
+        totalCredits += courses[i].credits;
+        totalGradePoints += gradePoint * courses[i].credits;
+    }
+
+    // Calculate and display GPA
+    float cgpa = totalGradePoints / totalCredits;
+    cout << "\nTotal Credits: " << totalCredits << endl;
+    cout << "Total Grade Points: " << totalGradePoints << endl;
+    cout << "CGPA: " << cgpa << endl;
+
+    return 0;
+}
+    
